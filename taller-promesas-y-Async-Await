@@ -1,1 +1,81 @@
+//1.Ejercicio Propuesto 1: Crear una promesa encadenada con dos operaciones
+//Escribe una función que primero verifique si un archivo existe (simulando con
+//setTimeout) y luego lea el archivo.
+function verificarArchivo() {
+    return new Promise((resolve, reject) => {
+        console.log("Verificando si el archivo existe");
+        setTimeout(() => {
+            let archivoExiste = true;
+            if (archivoExiste) {
+                resolve("Archivo existe");
+            } else {
+                reject("Archivo no encontrado");
+            }
+        }, 3000);
+    });
+}
 
+function leerArchivo() {
+    return new Promise((resolve, reject) => {
+        console.log("Leyendo el archivo");
+        setTimeout(() => {
+            resolve("Leído el archivo");
+        }, 3000);
+    });
+}
+
+verificarArchivo()
+    .then((mensaje) => {
+        console.log(mensaje);
+        return leerArchivo();
+    })
+    .then((mensaje) => {
+        console.log(mensaje);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+
+//2.Ejercicio Propuesto 2: Implementar async/await para múltiples operaciones asíncronas
+//Simula una función que descargue datos de tres API diferentes y utilice async/await
+//para manejarlas de forma secuencial.
+
+    function descargarAPI(nombreAPI) {
+        return new Promise((resolve) => {
+            console.log(`Descargando datos de ${nombreAPI}`);
+            setTimeout(() => {
+                resolve(`${nombreAPI} descargada`);
+            }, 2000);
+        });
+    }
+    
+    async function descargarDatosSecuencialmente() {
+        try {
+            let api1 = await descargarAPI("API 1");
+            console.log(api1);
+    
+            let api2 = await descargarAPI("API 2");
+            console.log(api2);
+    
+            let api3 = await descargarAPI("API 3");
+            console.log(api3);
+    
+            console.log("Las APIs han sido descargadas ");
+        } catch (error) {
+            console.log("Descarga fallida:", error);
+        }
+    }
+    
+    descargarDatosSecuencialmente();
+
+
+Evaluación Formativa 
+Pregunta 1: ¿Cuál es la principal ventaja de usar async/await sobre callbacks tradicionales? 
+• a) async/await permite la ejecución secuencial del código. 
+• b) async/await evita la repetición de código. 
+• c) async/await facilita la escritura y el manejo de código asíncrono.
+ Pregunta 2: ¿Qué estado no pertenece a una promesa?
+ • a) Pendiente. 
+• b) Resuelta. 
+• c) Aplazada.
+Respuestas Correctas: 1. C Y 2. C
